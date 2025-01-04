@@ -7,9 +7,11 @@ export default function Listagem() {
     useEffect(() => {
         const fetchProdutos = async () => {
             try {
-                const response = await fetch('http://seu-backend-endpoint/api/produtos');
+                const response = await fetch('http://localhost:3001/api/produtos');
                 const data = await response.json();
-                const sortedProdutos = data.sort((a, b) => a.valor - b.valor);
+                console.log('Dados recebidos:', data);
+                const sortedProdutos = data.sort((a, b) => parseFloat(a.valor) - parseFloat(b.valor));
+                console.log('Dados ordenados:', sortedProdutos);
                 setProdutos(sortedProdutos);
             } catch (error) {
                 console.error('Erro ao buscar produtos:', error);
@@ -19,12 +21,34 @@ export default function Listagem() {
         fetchProdutos();
     }, []);
 
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:3001/api/produtos/${id}`, {
+                method: 'DELETE'
+            });
+            if (response.ok) {
+                setProdutos(produtos.filter(produto => produto.id !== id));
+                console.log('Produto deletado com sucesso');
+            } else {
+                console.error('Erro ao deletar produto');
+            }
+        } catch (error) {
+            console.error('Erro ao deletar produto:', error);
+        }
+    };
+
     return (
         <div>
             <ul>
                 {produtos.map((produto) => (
-                    <li key={produto.id}>
-                        {produto.nome} - R${produto.valor}
+                    <li className='flex justify-between py-5 border-b-2 border-grey-500' key={produto.id}>
+                        <p className='font-bold pr-20'>{produto.nome}</p>
+                        <p className='font-bold pr-5'>{produto.descricao}</p>
+                        <p className='font-bold '>R${produto.valor}</p>
+                        <p className='font-bold pr-2'>{produto.disponivel ? 'Sim' : 'Nao'}</p>
+                        <button className='bg-red-500 text-white px-3 py-1 rounded' onClick={() => handleDelete(produto.id)}>
+                            Deletar
+                        </button>
                     </li>
                 ))}
             </ul>

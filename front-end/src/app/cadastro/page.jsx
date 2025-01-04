@@ -21,8 +21,12 @@ export default function Cadastro() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if(formData.nome === '' || formData.descricao === '' || formData.valor === ''){
+            alert('Preencha todos os campos');
+            return;
+        }
         try {
-            const response = await fetch('http://seu-backend-endpoint/api/produtos', {
+            const response = await fetch('http://localhost:3001/api/produtos', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
