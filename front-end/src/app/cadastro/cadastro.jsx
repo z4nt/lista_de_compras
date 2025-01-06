@@ -46,7 +46,7 @@ export default function Cadastro() {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="bg-white w-[640px] h-[550px] rounded-xl flex flex-col items-center py-8 ">
+            <div className="bg-white w-[640px] sm:h-[450px] h-[600px] rounded-xl flex flex-col items-center py-8 ">
                 <h1 className="text-2xl font-bold">CADASTRO</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="flex flex-col items-center">
@@ -73,7 +73,7 @@ export default function Cadastro() {
                                 type="number"
                                 name="valor"
                                 placeholder="Valor do produto"
-                                className="border-2 border-gray-500 rounded-lg w-[200px] h-10 px-2 ml-8 mr-5"
+                                className="border-2 border-gray-500 rounded-lg w-[200px] h-10 px-5 ml-8 mr-5"
                                 value={formData.valor}
                                 onChange={handleChange}
                             />
@@ -94,6 +94,7 @@ export default function Cadastro() {
                         <button type="submit" className="w-16 h-16 rounded-lg flex items-center justify-center px-2">
                             <img src="/Button.svg" alt="" />
                         </button>
+                        <button>LISTA</button>
                     </div>
                 </form>
             </div>

@@ -3,12 +3,12 @@ import Listagem from "../listagem/listagem";
 
 export default function Formulario() {
     const handleCadastro = () => {
-        window.location.href = '/cadastro'; // Substitua '/cadastro' pela rota da sua página de cadastro
+        window.location.href = '/cadastro'; 
     };
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="bg-white w-[640px] h-[600px] rounded-xl flex flex-col items-center py-8">
+            <div className="bg-white w-[640px] sm:h-[500px] h-[550px] rounded-xl flex flex-col items-center py-8">
                 <img src="/Icon.svg" alt="" />
                 <h1 className="text-2xl font-bold">Listagem de Produtos</h1>
                 <h5 className="text-sm font-extralight">Facilite sua ida ao supermercado</h5>
@@ -19,7 +19,7 @@ export default function Formulario() {
                         <p className="font-bold pr-10">VALOR</p>
                         <p className="font-bold">DISPONIVEL</p>
                     </div>
-                    <div className="overflow-y-auto h-[300px] w-full px-10">
+                    <div className="overflow-y-auto sm:h-[200px] h-[300px] w-full px-10">
                         <Listagem />
                     </div>
                 </div>
