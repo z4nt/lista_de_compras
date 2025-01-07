@@ -1,10 +1,9 @@
 'use client'
+import { useRouter } from "next/navigation";
 import Listagem from "../listagem/listagem";
 
 export default function Formulario() {
-    const handleCadastro = () => {
-        window.location.href = '/cadastro'; 
-    };
+    const router = useRouter()
 
     return (
         <div className="flex justify-center items-center h-screen">
@@ -25,7 +24,7 @@ export default function Formulario() {
                 </div>
                 <button
                     className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
-                    onClick={handleCadastro}
+                    onClick={() => router.push('/')}
                 >
                     Cadastrar Produto
                 </button>

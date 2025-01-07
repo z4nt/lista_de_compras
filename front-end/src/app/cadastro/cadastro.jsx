@@ -1,8 +1,9 @@
 'use client'
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Cadastro() {
-
+    const router = useRouter()
     const [formData, setFormData] = useState({
         nome: '',
         descricao: '',
@@ -35,7 +36,6 @@ export default function Cadastro() {
             });
             if (response.ok) {
                 console.log('Produto cadastrado com sucesso');
-                window.location.href = '/formulario';
             } else {
                 console.error('Erro ao cadastrar produto');
             }
@@ -91,7 +91,7 @@ export default function Cadastro() {
                                 <option value="Não">Não</option>
                             </select>
                         </div>
-                        <button type="submit" className="w-16 h-16 rounded-lg flex items-center justify-center px-2">
+                        <button type="submit" onClick={() => router.push('/lista')} className="w-16 h-16 rounded-lg flex items-center justify-center px-2">
                             <img src="/Button.svg" alt="" />
                         </button>
                         <button>LISTA</button>
