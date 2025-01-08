@@ -41,13 +41,13 @@ export default function Listagem() {
         <div>
             <ul>
                 {produtos.map((produto) => (
-                    <li className='flex justify-between py-5 border-b-2 border-grey-500' key={produto.id}>
-                        <p className='font-bold pr-20'>{produto.nome}</p>
-                        <p className='font-bold pr-5'>{produto.descricao}</p>
+                    <li className='flex justify-between py-5 px-2 border-2 rounded-md my-2 border-grey-500' key={produto.id}>
+                        <p className='font-bold'>{produto.nome}</p>
+                        <p className='text-left font-bold '>{produto.descricao}</p>
                         <p className='font-bold '>R${produto.valor}</p>
-                        <p className='font-bold pr-2'>{produto.disponivel ? 'Sim' : 'Nao'}</p>
-                        <button className='bg-red-500 text-white px-3 py-1 rounded' onClick={() => handleDelete(produto.id)}>
-                            Deletar
+                        <p className='font-bold '>{produto.disponivel ? 'Sim' : 'Nao'}</p>
+                        <button className='bg-white text-white px-3 py-1 rounded' onClick={() => handleDelete(produto.id)}>
+                           <img className='h-5 bg-white' src="/icon-dump.svg" alt="" />
                         </button>
                     </li>
                 ))}
