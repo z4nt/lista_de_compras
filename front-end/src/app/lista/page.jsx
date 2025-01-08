@@ -8,7 +8,7 @@ export default function Formulario() {
     const [order, setOrder] = useState('')
 
     const handleChange = () => {
-       setOrder(event.target.value)
+       setOrder(event)
     }
 
     return (
