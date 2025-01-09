@@ -46,7 +46,7 @@ export default function Cadastro() {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="bg-white w-[640px] sm:h-[450px] h-[600px] rounded-xl flex flex-col items-center py-8 ">
+            <div className="bg-white w-[510px] sm:h-[450px] h-[600px] rounded-xl flex flex-col items-center py-8 ">
                 <h1 className="text-2xl font-bold">CADASTRO</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="flex flex-col items-center">
@@ -68,17 +68,17 @@ export default function Cadastro() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div>
+                        <div className="flex gap-10"> 
                             <input
                                 type="number"
                                 name="valor"
                                 placeholder="Valor do produto"
-                                className="border-2 border-gray-500 rounded-lg w-[200px] h-10 px-5 ml-8 mr-5"
+                                className="border-2 border-gray-500 rounded-lg w-[200px] h-10 px-5 "
                                 value={formData.valor}
                                 onChange={handleChange}
                             />
                             <label htmlFor="disponivel" className="text-lg">
-                                Disponível para venda:
+                                Disponível:
                             </label>
                             <select
                                 id="disponivel"
@@ -91,10 +91,9 @@ export default function Cadastro() {
                                 <option value="Não">Não</option>
                             </select>
                         </div>
-                        <button type="submit" onClick={() => router.push('/lista')} className="w-16 h-16 rounded-lg flex items-center justify-center px-2">
-                            <img src="/Button.svg" alt="" />
+                        <button type="submit" onClick={() => router.push('/lista')} className="w-16 bg-green-400 mt-10 h-10 rounded-lg flex items-center justify-center px-2">
+                           +
                         </button>
-                        <button>LISTA</button>
                     </div>
                 </form>
             </div>

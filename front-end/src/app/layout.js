@@ -24,8 +24,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NAV/>
-        <div className="mt-16">{children}</div>
+      
+        <div>{children}</div>
       </body>
     </html>
   );

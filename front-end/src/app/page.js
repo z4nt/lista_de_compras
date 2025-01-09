@@ -11,8 +11,9 @@ const roboto = Roboto({
 export default function Home() {
   return (
    <div className={roboto.className}>
-    <NAV/>
-    <Cadastro/>
+    <div className="flex pl-10 gap-10">
+    <Formulario/>
+    </div>
    </div>
   );
 }
