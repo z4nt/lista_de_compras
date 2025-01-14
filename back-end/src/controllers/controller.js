@@ -1,4 +1,5 @@
 import sequelize ,{ Produto } from '../models/model.js';
+import PDFDocument from 'pdfkit'
 
 
 export const criarProduto = async (req, res) => {
@@ -80,3 +81,33 @@ export const deletarProduto = async (req, res) => {
     res.status(500).json({ error: 'Erro ao deletar produto' });
   }
 };
+
+export const baixarPdf = async (req, res) => {
+  try{
+    const produtos = await Produto.findAll()
+    const doc = new PDFDocument()
+    let filename = 'produtos.pdf'
+    filename = encondeURIComponent(filename)
+
+    res.setHeader('Content-Type', 'application/pdf')
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`)
+
+    doc.text('Listage de Produtos', { align: 'center' })
+    doc.moveDown()
+
+    produtos.forEach(produtos => {
+      doc.text(`Produto: ${produtos.nome}`)
+      doc.text(`Descrição: ${produtos.descricao}`)
+      doc.text(`Valor: ${produtos.valor}`)
+      doc.text(`Diposnível: ${produtos.disponivel ? 'sim' : 'não'}`)
+      doc.moveDown
+      
+    })
+    doc.pipe(res)
+    doc.end
+
+  }catch (error){
+    console.error('Erro ao gerar pdf:', error)
+    res.status(500).send('erro ao gerar PDF')
+  }
+}
