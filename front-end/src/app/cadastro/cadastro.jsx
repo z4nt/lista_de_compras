@@ -1,9 +1,7 @@
 'use client'
 import React, { useState, useContext } from 'react';
-import { AppContext } from '../contexto/contexto';
 
-export default function Cadastro({visible, setVisible}) {
-    const {handleRefresh} = useContext(AppContext)
+export default function Cadastro({visible, setVisible, handleRefresh}) {
     const [formData, setFormData] = useState({
         nome: '',
         descricao: '',
@@ -99,7 +97,7 @@ export default function Cadastro({visible, setVisible}) {
                                         <option value="Não">Não</option>
                                     </select>
                                 </div>
-                                <button type="submit" onClick={handleRefresh} className="w-16 bg-green-400 mt-10 h-10 rounded-lg flex items-center justify-center px-2">
+                                <button type="submit" onClick={handleRefresh} className="w-16 bg-green-400 hover:bg-green-500 mt-10 h-10 rounded-lg flex items-center justify-center px-2">
                                     +
                                 </button>
                             </div>
