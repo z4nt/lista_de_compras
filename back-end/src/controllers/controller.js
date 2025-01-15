@@ -87,24 +87,20 @@ export const baixarPdf = async (req, res) => {
     const produtos = await Produto.findAll()
     const doc = new PDFDocument()
     let filename = 'produtos.pdf'
-    filename = encondeURIComponent(filename)
+    filename = encodeURIComponent(filename);
 
     res.setHeader('Content-Type', 'application/pdf')
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`)
 
-    doc.text('Listage de Produtos', { align: 'center' })
+    doc.text('Listagem de Produtos', { align: 'center' })
     doc.moveDown()
 
     produtos.forEach(produtos => {
-      doc.text(`Produto: ${produtos.nome}`)
-      doc.text(`Descrição: ${produtos.descricao}`)
-      doc.text(`Valor: ${produtos.valor}`)
-      doc.text(`Diposnível: ${produtos.disponivel ? 'sim' : 'não'}`)
-      doc.moveDown
-      
+      doc.text(`Produto: ${produtos.nome}  Descricao: ${produtos.descricao}  Valor: ${produtos.valor}  Disponivel: ${produtos.disponivel ? 'sim' : 'não'}`)
+      doc.moveDown()
     })
     doc.pipe(res)
-    doc.end
+    doc.end()
 
   }catch (error){
     console.error('Erro ao gerar pdf:', error)

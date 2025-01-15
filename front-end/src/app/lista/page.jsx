@@ -1,11 +1,9 @@
 'use client'
-import { useRouter } from "next/navigation";
 import React, { useState } from 'react';
 import Listagem from "../listagem/listagem";
 import Cadastro from "../cadastro/cadastro";
 
 export default function Formulario() {
-    const router = useRouter();
     const [visible, setVisible] = useState(false);
     const [order, setOrder] = useState('crescente');
 
@@ -15,7 +13,25 @@ export default function Formulario() {
     const handleClick = () => {
         setVisible(true);
     }
-
+    
+    const handlePdf = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/api/produtos/pdf');
+            if (!response.ok) {
+                throw new Error('Erro ao baixar PDF');
+            }
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'produtos.pdf';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        } catch (error) {
+            console.error('Erro ao baixar PDF:', error);
+        }
+    };
     return (
         <div className="flex justify-start items-center h-screen gap-10 px-10 ]">
             <div className="bg-white w-[600px] sm:h-[510px] h-[800px] rounded-xl flex flex-col ml-0 items-center py-8 px-10">
@@ -37,7 +53,7 @@ export default function Formulario() {
                 </div>
                 <div className="flex w-full justify-end">
                 <button className="bg-green-400 h-10 w-10 rounded-md mb-2" onClick={handleClick}>+</button>
-                <button className="ml-[200px]">AAAAA</button>
+                <button className="ml-[200px]" onClick={handlePdf}><img className="h-8 mb-2" src="/download.svg" alt="" /></button>
                 </div>
             </div>
             <Cadastro visible={visible} setVisible={setVisible}/>

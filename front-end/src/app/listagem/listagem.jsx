@@ -1,7 +1,9 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AppContext } from '../contexto/contexto';
 
 export default function Listagem({ order }) {
+    const {refresh} = useContext(AppContext);
     const [produtos, setProdutos] = useState([]);
 
     useEffect(() => {
@@ -23,7 +25,7 @@ export default function Listagem({ order }) {
         };
 
         fetchProdutos();
-    }, [order]);
+    }, [order, refresh]);
 
     const handleDelete = async (id) => {
         try {
