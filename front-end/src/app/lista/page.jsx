@@ -5,7 +5,7 @@ import Cadastro from "../cadastro/cadastro";
 import { AppContext } from '../contexto/contexto';
 
 export default function Formulario() {
-    const {handleRefresh, refresh} = useContext(AppContext)
+    const {handleRefresh, refresh, produto} = useContext(AppContext)
     const [visible, setVisible] = useState(false);
     const [order, setOrder] = useState('crescente');
 
@@ -34,6 +34,10 @@ export default function Formulario() {
             console.error('Erro ao baixar PDF:', error);
         }
     };
+
+
+    
+    
     return (
         <div className="flex justify-start items-center h-screen gap-10 px-10 ]">
             <div className="bg-white w-[650px] sm:h-[510px] h-[800px] rounded-xl flex flex-col ml-0 items-center py-8 px-10">
@@ -51,7 +55,7 @@ export default function Formulario() {
                             <option className="font-bold" value="decrescente">Decrescente</option>
                         </select>
                     </div>
-                    <Listagem order={order}  refresh={refresh}/>
+                    <Listagem order={order}  refresh={refresh} produtos={produto}/>
                 </div>
                 <div className="flex w-full justify-end">
                 <button className="bg-green-400 hover:bg-green-500 h-10 w-10 rounded-md mb-2" onClick={handleClick}>+</button>

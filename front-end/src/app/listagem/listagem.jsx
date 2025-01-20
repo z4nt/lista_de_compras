@@ -1,32 +1,31 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AppContext } from '../contexto/contexto';
 
-export default function Listagem({ order, refresh }) {
+export default function Listagem({ order, refresh,produtos }) {
     const [atualizar, setAtualizar] = useState(null);
-    const [produtos, setProdutos] = useState([]);
-
-
+    const {setProdutos} = useContext(AppContext);
     useEffect(() => {
         const fetchProdutos = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/produtos');
-                const data = await response.json();
-                console.log('Dados recebidos:', data);
-                let sortedProdutos;
+                setProdutos(produtos);
+                let sortedProduto = [];
                 if (order === 'crescente') {
-                    sortedProdutos = [...data].sort((a, b) => parseFloat(a.valor) - parseFloat(b.valor));
+                 sortedProduto = [...produtos].sort((a, b) => parseFloat(a.valor) - parseFloat(b.valor));
+                 setProdutos(sortedProduto);
+                 console.log('Produtos:', produtos);
                 } else {
-                    sortedProdutos = [...data].sort((a, b) => parseFloat(b.valor) - parseFloat(a.valor));
-                }
-                setProdutos(sortedProdutos);
+                 sortedProduto = [...produtos].sort((a, b) => parseFloat(b.valor) - parseFloat(a.valor));
+                 setProdutos(sortedProduto);
+                 
+                };
             } catch (error) {
                 console.error('Erro ao buscar produtos:', error);
             }
         };
 
         fetchProdutos();
-    }, [order, refresh]);
-
+    }, [order]);
     const handleDelete = async (id) => {
         try {
             const response = await fetch(`http://localhost:3001/api/produtos/${id}`, {
@@ -73,15 +72,10 @@ export default function Listagem({ order, refresh }) {
         setProdutos((prevItems) =>
             prevItems.map((item) =>
                 item.id === id
-                    ? { ...item, [field]: newValue } // Atualiza a propriedade dinamicamente
+                    ? { ...item, [field]: newValue }
                     : item
             )
         );
-        // const { name, value } = e.target;
-        // setFormData({
-        //     ...formData,
-        //     [name]: value
-        // });
     };
 
     return (
@@ -97,16 +91,18 @@ export default function Listagem({ order, refresh }) {
                                     updateItem(e, produto.id, "descricao", e.target.value)} />
                                 <input className='font-bold w-20' type='number' name='valor' value={produto.valor} onChange={(e) =>
                                     updateItem(e, produto.id, "valor", e.target.value)} />
-                                <select name='disponivel' value={produto.disponivel} >
+                                <select name='disponivel' value={produto.disponivel ? 'Sim' : 'Nao'} >
                                     <option value='Sim'>Sim</option>
                                     <option value='Nao'>Nao</option>
                                 </select>
+                                <div className='flex w-28 gap-2'>
                                 <button className='bg-gray-100 text-white px-3 py-1 rounded' onClick={() => setAtualizar(null)}>
                                     <img className='h-5 bg-red-400 p-1 rounded-md' src="/close.svg" alt="" />
                                 </button>
                                 <button className='bg-gray-100 text-white px-3 py-1 rounded' onClick={() => handleUpdate(produto.id)}>
                                     <img className='h-5 bg-gray-100' src="/edit.svg" alt="" />
                                 </button>
+                                </div>
 
                             </>
                         ) : (
@@ -116,7 +112,7 @@ export default function Listagem({ order, refresh }) {
                                 <p className='font-bold w-10'>R${produto.valor}</p>
                                 <p className='font-bold w-10'>{produto.disponivel ? 'Sim' : 'Nao'}</p>
                                 <div className='flex w-28 gap-2'>
-                                    <button className='bg-gray-100 text-white px-3 py-1 rounded' onClick={() => setAtualizar(produto.id)}>
+                                    <button className='bg-gray-100 text-white px-3 py-1 rounded' onClick={() =>setAtualizar(produto.id)}>
                                         <img className='h-5 bg-gray-100' src="/edit.svg" alt="" />
                                     </button>
                                     <button className='bg-gray-100 text-white px-3 py-1 rounded' onClick={() => handleDelete(produto.id)}>
